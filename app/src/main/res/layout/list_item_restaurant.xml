@@ -62,10 +62,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/restaurant_item_padding"
+            android:text="@{restaurant.name}"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toEndOf="@id/restaurant_item_image"
             app:layout_constraintTop_toTopOf="@id/top_guideline"
-            android:text="The Melt" />
+            tools:text="The Melt" />
 
         <TextView
             android:id="@+id/restaurant_type_text"
@@ -73,11 +74,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/restaurant_item_padding"
-
+            android:text="@{restaurant.description}"
             app:layout_constraintEnd_toStartOf="@id/restaurant_distance_text"
             app:layout_constraintStart_toEndOf="@id/restaurant_item_image"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_name_text"
-            android:text="American, Burgers" />
+            tools:text="American, Burgers" />
 
         <TextView
             android:id="@+id/restaurant_distance_text"
