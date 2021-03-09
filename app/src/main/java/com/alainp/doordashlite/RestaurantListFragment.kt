@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 /**
  * TODO A simple [Fragment] subclass as the default destination in the navigation.
+ * - Handle the no network case
  */
 @AndroidEntryPoint
 class RestaurantListFragment : Fragment() {

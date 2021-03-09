@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alainp.doordashlite.R
 import com.alainp.doordashlite.data.Restaurant
+import com.alainp.doordashlite.data.asapMinute
+import com.alainp.doordashlite.data.isOpen
 import com.alainp.doordashlite.databinding.ListItemRestaurantBinding
 
 class RestaurantAdapter :
@@ -40,6 +42,17 @@ class RestaurantAdapter :
                 restaurant = item
                 executePendingBindings()
             }
+
+            val context = binding.root.context
+            val asapMinute = item.asapMinute()
+            val asapText = if (asapMinute == null || !item.isOpen()) {
+                context.getString(R.string.closed)
+            } else {
+                "$asapMinute " +
+                        if (asapMinute == 1) context.getString(R.string.min)
+                        else context.getString(R.string.mins)
+            }
+            binding.restaurantDistanceText.text = asapText
         }
     }
 }
@@ -47,7 +60,7 @@ class RestaurantAdapter :
 private class RestaurantDiffCallback : DiffUtil.ItemCallback<Restaurant>() {
 
     override fun areItemsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean =
-        false //TODO return oldItem.plantId == newItem.plantId
+        oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean =
         oldItem == newItem
