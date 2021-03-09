@@ -12,8 +12,8 @@ interface RestaurantService {
 
     @GET("/v1/store_feed")
     suspend fun getRestaurants(
-        @Query("lat") lat: Double,
-        @Query("lng") lng: Double,
+        @Query("lat") lat: Float,
+        @Query("lng") lng: Float,
         @Query("offset") offset: Int = DEFAULT_LIMIT,
         @Query("limit") limit: Int = DEFAULT_OFFSET
     ): GetRestaurantsResponse
@@ -24,7 +24,8 @@ interface RestaurantService {
         private const val DEFAULT_LIMIT = 50
 
         fun create(): RestaurantService {
-            val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+            val logger =
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)

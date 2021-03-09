@@ -2,6 +2,7 @@ package com.alainp.doordashlite.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import com.alainp.doordashlite.data.Restaurant
 import com.alainp.doordashlite.databinding.ListItemRestaurantBinding
 
 class RestaurantAdapter :
-    ListAdapter<Restaurant, RecyclerView.ViewHolder>(RestaurantDiffCallback()) {
+    PagingDataAdapter<Restaurant, RecyclerView.ViewHolder>(RestaurantDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return RestaurantViewHolder(
             ListItemRestaurantBinding.inflate(
@@ -22,7 +23,9 @@ class RestaurantAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val restaurant = getItem(position)
-        (holder as RestaurantViewHolder).bind(restaurant)
+        if (restaurant != null) {
+            (holder as RestaurantViewHolder).bind(restaurant)
+        }
     }
 
     class RestaurantViewHolder(
