@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--TODO:-->
+<!--Check paddings-->
+<!--Check text on small devices-->
+<!--Style text correctly-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="restaurant"
+            type="com.alainp.doordashlite.data.Restaurant" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/restaurant_item_padding" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/restaurant_item_padding" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/restaurant_item_padding" />
+
+        <ImageView
+            android:id="@+id/restaurant_item_image"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/restaurant_item_image_height"
+            android:layout_marginStart="@dimen/restaurant_item_padding"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_guideline"
+            app:layout_constraintEnd_toStartOf="@id/restaurant_name_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/top_guideline"
+            app:layout_constraintWidth_percent="0.35"
+            android:src="@drawable/the_melt" />
+
+        <TextView
+            android:id="@+id/restaurant_name_text"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/restaurant_item_padding"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toEndOf="@id/restaurant_item_image"
+            app:layout_constraintTop_toTopOf="@id/top_guideline"
+            android:text="The Melt" />
+
+        <TextView
+            android:id="@+id/restaurant_type_text"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/restaurant_item_padding"
+
+            app:layout_constraintEnd_toStartOf="@id/restaurant_distance_text"
+            app:layout_constraintStart_toEndOf="@id/restaurant_item_image"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_name_text"
+            android:text="American, Burgers" />
+
+        <TextView
+            android:id="@+id/restaurant_distance_text"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            app:layout_constraintBottom_toBottomOf="@id/restaurant_type_text"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toEndOf="@id/restaurant_type_text"
+            app:layout_constraintTop_toTopOf="@+id/restaurant_type_text"
+            android:text="22 Mins" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
