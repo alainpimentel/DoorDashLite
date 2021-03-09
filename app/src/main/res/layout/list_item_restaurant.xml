@@ -49,12 +49,13 @@
             android:layout_height="@dimen/restaurant_item_image_height"
             android:layout_marginStart="@dimen/restaurant_item_padding"
             android:scaleType="fitCenter"
+            app:imageUrl="@{restaurant.coverImageUrl}"
             app:layout_constraintBottom_toBottomOf="@id/bottom_guideline"
             app:layout_constraintEnd_toStartOf="@id/restaurant_name_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/top_guideline"
             app:layout_constraintWidth_percent="0.35"
-            android:src="@drawable/the_melt" />
+            tools:src="@drawable/the_melt" />
 
         <TextView
             android:id="@+id/restaurant_name_text"
