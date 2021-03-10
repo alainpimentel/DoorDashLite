@@ -2,18 +2,21 @@ package com.alainp.doordashlite
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alainp.doordashlite.databinding.FragmentRestaurantDetailBinding
+import com.alainp.doordashlite.viewmodels.RestaurantDetailViewModel
+import com.alainp.doordashlite.viewmodels.RestaurantDetailViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -22,6 +25,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class RestaurantDetailFragment : Fragment() {
 
     private val args: RestaurantDetailFragmentArgs by navArgs()
+    @Inject
+    lateinit var restaurantDetailViewModelViewModelFactory: RestaurantDetailViewModelFactory
+    private val viewModel: RestaurantDetailViewModel by viewModels() {
+        RestaurantDetailViewModel.provideFactory(restaurantDetailViewModelViewModelFactory, args.restaurantId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +62,8 @@ class RestaurantDetailFragment : Fragment() {
                 })
 
         }
+
+        subscribeUI()
         return binding.root
     }
 
@@ -63,5 +73,13 @@ class RestaurantDetailFragment : Fragment() {
 //        view.findViewById<Button>(R.id.button_second).setOnClickListener {
 //            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
 //        }
+    }
+
+    private fun subscribeUI() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.restaurantDetail.observe(viewLifecycleOwner) { restaurantDetail ->
+                Log.d("messi","$restaurantDetail")
+            }
+        }
     }
 }

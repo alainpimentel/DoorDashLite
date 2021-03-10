@@ -1,24 +1,20 @@
 package com.alainp.doordashlite.viewmodels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.alainp.doordashlite.api.RestaurantService
-import com.alainp.doordashlite.data.GetRestaurantsResponse
 import com.alainp.doordashlite.data.Restaurant
 import com.alainp.doordashlite.data.RestaurantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.ticker
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RestaurantListViewModel @Inject internal constructor(
     private val restaurantRepository: RestaurantRepository
-): ViewModel() {
+) : ViewModel() {
 
 //    private val _restaurantList = MutableLiveData<List<Restaurant>>()
 //    val restaurantList = _restaurantList

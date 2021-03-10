@@ -26,6 +26,6 @@
             app:destination="@id/RestaurantListFragment" />
         <argument
             android:name="restaurantId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 </navigation>

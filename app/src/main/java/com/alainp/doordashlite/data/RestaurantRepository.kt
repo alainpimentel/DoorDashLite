@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class RestaurantRepository @Inject constructor(private val service: RestaurantService) {
 
+    // TODO pass page size
     fun getRestaurants(
         @FloatRange(from = -90.0, to = 90.0) lat: Float,
         @FloatRange(from = -180.0, to = 180.0) lng: Float
@@ -20,6 +21,10 @@ class RestaurantRepository @Inject constructor(private val service: RestaurantSe
             config = PagingConfig(enablePlaceholders = false, pageSize = PAGE_SIZE),
             pagingSourceFactory = { RestaurantPagingSource(service, lat, lng) }
         ).flow
+    }
+
+    suspend fun getRestaurantDetail(restaurantId: Long): RestaurantDetail {
+        return service.getRestaurantDetail(restaurantId)
     }
 
     companion object {

@@ -5,7 +5,7 @@ import com.alainp.doordashlite.utilities.toEpochMs
 import com.google.gson.annotations.SerializedName
 
 data class Restaurant(
-    val id: Int,
+    val id: Long,
     val name: String,
     val description: String,
     @SerializedName("distance_from_consumer") val distanceFromConsumer: Double,
