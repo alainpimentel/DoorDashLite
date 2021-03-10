@@ -11,8 +11,8 @@ interface RestaurantDetailDao {
     @Query("SELECT * FROM restaurantDetails WHERE id = :restaurantId")
     fun getRestaurantDetail(restaurantId: Long): Flow<RestaurantDetail>
 
-    @Query("SELECT EXISTS(SELECT * FROM restaurantDetails WHERE id = :restaurantId)")
-    fun hasRestaurantDetail(restaurantId: Long): Boolean
+    @Query("SELECT EXISTS(SELECT * FROM restaurantDetails WHERE id = :restaurantId AND lastUpdated >= :timeout)")
+    fun hasRestaurantDetail(restaurantId: Long, timeout: Long): Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(plants: List<RestaurantDetail>)

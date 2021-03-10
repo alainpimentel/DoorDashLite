@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.alainp.doordashlite.utilities.DATABASE_NAME
 
-@Database(entities = [RestaurantDetail::class], version = 1, exportSchema = false)
+@Database(entities = [RestaurantDetail::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun restaurantDetailDao(): RestaurantDetailDao
 
