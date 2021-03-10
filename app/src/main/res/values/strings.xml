@@ -12,4 +12,5 @@
     <string name="closed">Closed</string>
     <string name="mins">mins</string>
     <string name="min">min</string>
+    <string name="restaurant_detail_image_content_description">Cover image of restaurant</string>
 </resources>
