@@ -1,6 +1,7 @@
 package com.alainp.doordashlite
 
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,11 +26,16 @@ import javax.inject.Inject
 class RestaurantDetailFragment : Fragment() {
 
     private val args: RestaurantDetailFragmentArgs by navArgs()
+
     @Inject
     lateinit var restaurantDetailViewModelViewModelFactory: RestaurantDetailViewModelFactory
     private val viewModel: RestaurantDetailViewModel by viewModels() {
-        RestaurantDetailViewModel.provideFactory(restaurantDetailViewModelViewModelFactory, args.restaurantId)
+        RestaurantDetailViewModel.provideFactory(
+            restaurantDetailViewModelViewModelFactory,
+            args.restaurantId
+        )
     }
+    private lateinit var binding: FragmentRestaurantDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +43,7 @@ class RestaurantDetailFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         Log.d("messi", "Arg ${args.restaurantId}")
-        val binding = DataBindingUtil.inflate<FragmentRestaurantDetailBinding>(
+        binding = DataBindingUtil.inflate<FragmentRestaurantDetailBinding>(
             inflater,
             R.layout.fragment_restaurant_detail,
             container,
@@ -77,8 +83,14 @@ class RestaurantDetailFragment : Fragment() {
 
     private fun subscribeUI() {
         lifecycleScope.launchWhenCreated {
+//            viewModel.fetchRestaurantDetail().collect {
+//                Log.d("messi","$it")
+//            }
+
+            Log.d("messithread", "subscribeUI Thread ${Looper.getMainLooper().getThread()}")
             viewModel.restaurantDetail.observe(viewLifecycleOwner) { restaurantDetail ->
-                Log.d("messi","$restaurantDetail")
+                Log.d("messi", "$restaurantDetail")
+                binding.dashPassText.text = restaurantDetail.phoneNumber
             }
         }
     }

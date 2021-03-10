@@ -1,5 +1,6 @@
 package com.alainp.doordashlite.data
 
+import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -10,7 +11,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RestaurantRepository @Inject constructor(private val service: RestaurantService) {
+class RestaurantRepository @Inject constructor(
+    private val service: RestaurantService,
+    private val restaurantDetailDao: RestaurantDetailDao
+) {
 
     // TODO pass page size
     fun getRestaurants(
@@ -23,8 +27,22 @@ class RestaurantRepository @Inject constructor(private val service: RestaurantSe
         ).flow
     }
 
-    suspend fun getRestaurantDetail(restaurantId: Long): RestaurantDetail {
-        return service.getRestaurantDetail(restaurantId)
+    suspend fun getRestaurantDetail(restaurantId: Long): Flow<RestaurantDetail> {
+        refreshRestaurantDetail(restaurantId)
+        return restaurantDetailDao.getRestaurantDetail(restaurantId)
+    }
+
+    private suspend fun refreshRestaurantDetail(restaurantId: Long) {
+        val exists = restaurantDetailDao.hasRestaurantDetail(restaurantId)
+        if (!exists) {
+            Log.d("messi", "Restaurant $restaurantId does not exist, fetching...")
+            val response = service.getRestaurantDetail(restaurantId)
+            //val updatedRestaurantDetail = response.copy(lastUpdated = System.currentTimeMillis())
+            // TODO check for errors
+
+            restaurantDetailDao.insertAll(listOf(response))
+            Log.d("messi", "Restaurant $restaurantId was fetched...!\n $response")
+        }
     }
 
     companion object {

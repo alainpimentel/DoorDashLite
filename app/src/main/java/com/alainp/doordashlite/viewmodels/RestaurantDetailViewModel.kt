@@ -1,11 +1,15 @@
 package com.alainp.doordashlite.viewmodels
 
+import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.*
 import com.alainp.doordashlite.data.RestaurantDetail
 import com.alainp.doordashlite.data.RestaurantRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RestaurantDetailViewModel @AssistedInject internal constructor(
@@ -15,11 +19,17 @@ class RestaurantDetailViewModel @AssistedInject internal constructor(
 
     private val _restaurantDetail = MutableLiveData<RestaurantDetail>()
     val restaurantDetail: LiveData<RestaurantDetail> = _restaurantDetail
+//
+//    suspend fun fetchRestaurantDetail(): Flow<RestaurantDetail> {
+//        return restaurantRepository.getRestaurantDetail(restaurantId).asLiveData(viewM)
+//    }
 
     init {
-        viewModelScope.launch {
-            val data: RestaurantDetail = restaurantRepository.getRestaurantDetail(restaurantId)
-            _restaurantDetail.postValue(data)
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d("messithread", "viewmodel Thread ${Looper.getMainLooper().getThread()}")
+            restaurantRepository.getRestaurantDetail(restaurantId).collect {
+                _restaurantDetail.postValue(it)
+            }
         }
     }
 
