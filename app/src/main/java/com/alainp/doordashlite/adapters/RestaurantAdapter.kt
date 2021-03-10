@@ -2,10 +2,12 @@ package com.alainp.doordashlite.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alainp.doordashlite.R
+import com.alainp.doordashlite.RestaurantListFragmentDirections
 import com.alainp.doordashlite.data.Restaurant
 import com.alainp.doordashlite.data.asapMinute
 import com.alainp.doordashlite.data.isOpen
@@ -34,7 +36,15 @@ class RestaurantAdapter :
         private val binding: ListItemRestaurantBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            // TODO set click listener
+            binding.setClickListener { view ->
+                binding.restaurant?.let {
+                    val direction =
+                        RestaurantListFragmentDirections.actionRestaurantListFragmentToRestaurantDetailFragment(
+                            it.id
+                        )
+                    view.findNavController().navigate(direction)
+                }
+            }
         }
 
         fun bind(item: Restaurant) {
@@ -52,7 +62,7 @@ class RestaurantAdapter :
                         if (asapMinute == 1) context.getString(R.string.min)
                         else context.getString(R.string.mins)
             }
-            binding.restaurantDistanceText.text = asapText
+            binding.restaurantAsapText.text = asapText
         }
     }
 }
