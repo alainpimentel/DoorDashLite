@@ -17,6 +17,8 @@ import com.alainp.doordashlite.databinding.FragmentRestaurantDetailBinding
 import com.alainp.doordashlite.viewmodels.RestaurantDetailViewModel
 import com.alainp.doordashlite.viewmodels.RestaurantDetailViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat.getNumberInstance
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -90,7 +92,18 @@ class RestaurantDetailFragment : Fragment() {
             Log.d("messithread", "subscribeUI Thread ${Looper.getMainLooper().getThread()}")
             viewModel.restaurantDetail.observe(viewLifecycleOwner) { restaurantDetail ->
                 Log.d("messi", "$restaurantDetail")
-                binding.dashPassText.text = restaurantDetail.phoneNumber
+                binding.restaurantDetail = restaurantDetail
+
+                val price = (1..restaurantDetail.priceRange).joinToString(separator = "") { "$" }
+                val ratings = getNumberInstance(Locale.US).format(restaurantDetail.numRatings)
+                binding.restaurantReviewsText.text = " ${ratings}+ ratings - $price" // TODO move to res
+                binding.dashPassText.visibility =
+                    if (restaurantDetail.dashPass) View.VISIBLE
+                    else View.GONE
+
+                binding.restaurantDeliveryTimeValueText.text = "${restaurantDetail.asapTime} min" // TODO move to res
+                binding.restaurantDeliveryFeeValueText.text = restaurantDetail.deliveryFeeDisplayString
+                //binding.dashPassText.text = restaurantDetail.phoneNumber
             }
         }
     }

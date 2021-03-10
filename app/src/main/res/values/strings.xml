@@ -13,4 +13,6 @@
     <string name="mins">mins</string>
     <string name="min">min</string>
     <string name="restaurant_detail_image_content_description">Cover image of restaurant</string>
+    <string name="delivery_fee">delivery fee</string>
+    <string name="delivery_time">delivery time</string>
 </resources>

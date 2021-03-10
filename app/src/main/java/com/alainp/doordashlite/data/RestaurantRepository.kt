@@ -34,11 +34,16 @@ class RestaurantRepository @Inject constructor(
 
     private suspend fun refreshRestaurantDetail(restaurantId: Long) {
         val currentTimeMillis = System.currentTimeMillis()
-        val exists = restaurantDetailDao.hasRestaurantDetail(restaurantId, currentTimeMillis - 1 * 60 * 1000)
+        val exists =
+            restaurantDetailDao.hasRestaurantDetail(restaurantId, currentTimeMillis - 1 * 60 * 1000)
         if (!exists) {
             Log.d("messi", "Restaurant $restaurantId does not exist, fetching...")
             val response = service.getRestaurantDetail(restaurantId)
-            val updatedRestaurantDetail = response.copy(lastUpdated = System.currentTimeMillis())
+            Log.d("messi", "response Restaurant $response ...")
+            val updatedRestaurantDetail = response.copy(
+                lastUpdated = System.currentTimeMillis(),
+                deliveryFeeDisplayString = response.deliveryFeeDetails?.originalFee?.displayString
+            )
             // TODO check for errors
 
             restaurantDetailDao.insertAll(listOf(updatedRestaurantDetail))
