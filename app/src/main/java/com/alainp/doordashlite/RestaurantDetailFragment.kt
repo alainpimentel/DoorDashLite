@@ -41,56 +41,24 @@ class RestaurantDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        Log.d("messi", "Arg ${args.restaurantId}")
+
         binding = DataBindingUtil.inflate<FragmentRestaurantDetailBinding>(
             inflater,
             R.layout.fragment_restaurant_detail,
             container,
             false
-        ).apply {
-//            var isToolbarShown = false
-//            toolbarLayout.isTitleEnabled = true
-//            restaurantDetailScrollview.setOnScrollChangeListener(
-//                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-//                    val shouldShowToolbar = scrollY > toolbar.height
-//                    if (isToolbarShown != shouldShowToolbar) {
-//                        isToolbarShown = shouldShowToolbar
-//
-//                        // Use shadow animator to add elevation if toolbar is shown
-//                        appbar.isActivated = shouldShowToolbar
-//
-//                        // Show the plant name if toolbar is shown
-//                        toolbarLayout.isTitleEnabled = shouldShowToolbar
-//                    }
-//                    toolbar.setNavigationOnClickListener { view ->
-//                        view.findNavController().navigateUp()
-//                    }
-//                })
-
-        }
-
+        )
         subscribeUI()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
-    }
 
     private fun subscribeUI() {
         lifecycleScope.launchWhenCreated {
-//            viewModel.fetchRestaurantDetail().collect {
-//                Log.d("messi","$it")
-//            }
 
-            Log.d("messithread", "subscribeUI Thread ${Looper.getMainLooper().getThread()}")
             viewModel.restaurantDetail.observe(viewLifecycleOwner) { restaurantDetail ->
-                Log.d("messi", "$restaurantDetail")
+                binding.progressBar.visibility = View.GONE
+                binding.loadingBackground.visibility = View.GONE
                 binding.restaurantDetail = restaurantDetail
 
                 val price = (1..restaurantDetail.priceRange).joinToString(separator = "") { "$" }
@@ -102,7 +70,6 @@ class RestaurantDetailFragment : Fragment() {
 
                 binding.restaurantDeliveryTimeValueText.text = "${restaurantDetail.asapTime} min" // TODO move to res
                 binding.restaurantDeliveryFeeValueText.text = restaurantDetail.deliveryFeeDisplayString
-                //binding.dashPassText.text = restaurantDetail.phoneNumber
             }
         }
     }

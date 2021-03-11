@@ -1,14 +1,14 @@
 package com.alainp.doordashlite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.alainp.doordashlite.adapters.RestaurantAdapter
 import com.alainp.doordashlite.databinding.FragmentRestaurantListBinding
 import com.alainp.doordashlite.viewmodels.RestaurantListViewModel
@@ -23,29 +23,28 @@ import kotlinx.coroutines.flow.collectLatest
 class RestaurantListFragment : Fragment() {
 
     private val viewModel: RestaurantListViewModel by viewModels()
+    private lateinit var binding: FragmentRestaurantListBinding
+
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentRestaurantListBinding.inflate(inflater, container, false)
+        binding = FragmentRestaurantListBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
         val restaurantAdapter = RestaurantAdapter()
+
         binding.restaurantList.adapter = restaurantAdapter
         subscribeUI(restaurantAdapter)
 
         setHasOptionsMenu(false)
 
+        restaurantAdapter.addLoadStateListener { loadState ->
+            binding.progressBar.isVisible = loadState.refresh is LoadState.Loading
+            binding.loadingBackground.isVisible = loadState.refresh is LoadState.Loading
+        }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
     }
 
     private fun subscribeUI(restaurantAdapter: RestaurantAdapter) {
@@ -54,9 +53,5 @@ class RestaurantListFragment : Fragment() {
                 restaurantAdapter.submitData(it)
             }
         }
-//        viewModel.fetchRestaurants().
-//        viewModel.restaurantList.observe(viewLifecycleOwner) { restaurants ->
-//            restaurantAdapter.submitList(restaurants)
-//        }
     }
 }
