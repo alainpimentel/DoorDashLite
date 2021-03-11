@@ -10,6 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+/**
+ * View model for RestaurantDetailFragment.
+ */
 class RestaurantDetailViewModel @AssistedInject internal constructor(
     private val restaurantRepository: RestaurantRepository,
     @Assisted private val restaurantId: Long,

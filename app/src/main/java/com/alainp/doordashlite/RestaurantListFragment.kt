@@ -17,6 +17,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 
+/**
+ * A [Fragment] to display a list of restaurants. This is also the home screen.
+ * Improvements:
+ * * Restore the previous list position when coming back from the restaurant detail screen. In order to do this
+ * the repository layer needs to support caching, and we should also save the last position to restore
+ * the recycler view correctly.
+ */
 @AndroidEntryPoint
 class RestaurantListFragment : Fragment() {
 

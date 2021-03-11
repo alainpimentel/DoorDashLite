@@ -20,7 +20,9 @@ import java.util.*
 import javax.inject.Inject
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * A [Fragment] to show the restaurant detail.
+ * Improvements:
+ * * Add more restaurant details
  */
 @AndroidEntryPoint
 class RestaurantDetailFragment : Fragment() {

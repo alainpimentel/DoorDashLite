@@ -10,6 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+/**
+ * View model for RestaurantListFragment.
+ */
 @HiltViewModel
 class RestaurantListViewModel @Inject internal constructor(
     private val restaurantRepository: RestaurantRepository

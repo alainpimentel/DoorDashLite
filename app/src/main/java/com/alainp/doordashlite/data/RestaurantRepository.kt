@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Single repository for the application. Abstracts away the database and service layers.
+ * Improvements:
+ * * Cache pagination so a network request is not needed any time the restaurant list is fetched
+ */
 @Singleton
 class RestaurantRepository @Inject constructor(
     private val service: RestaurantService,
