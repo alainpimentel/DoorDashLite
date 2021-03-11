@@ -39,6 +39,8 @@ buildscript {
         mockitoKotlinVersion = '2.2.0'
         mockitoInlineVersion = '2.8.47'
         kotlinxCoroutinesTestVersion = '1.4.3'
+        navVersion = "2.3.4"
+
     }
     repositories {
         google()

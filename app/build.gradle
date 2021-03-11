@@ -73,6 +73,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
 
     // Testing dependencies
+    androidTestImplementation("androidx.fragment:fragment-testing:1.3.0")
+    androidTestImplementation("androidx.fragment:fragment-ktx:1.3.0")
+    androidTestImplementation "androidx.navigation:navigation-testing:$navVersion"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
