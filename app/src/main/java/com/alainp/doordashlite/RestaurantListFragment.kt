@@ -9,16 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.alainp.doordashlite.adapters.RestaurantAdapter
 import com.alainp.doordashlite.databinding.FragmentRestaurantListBinding
 import com.alainp.doordashlite.viewmodels.RestaurantListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
-/**
- * TODO A simple [Fragment] subclass as the default destination in the navigation.
- * - Handle the no network case
- */
+
 @AndroidEntryPoint
 class RestaurantListFragment : Fragment() {
 
@@ -32,6 +30,13 @@ class RestaurantListFragment : Fragment() {
     ): View {
         binding = FragmentRestaurantListBinding.inflate(inflater, container, false)
         context ?: return binding.root
+
+        binding.restaurantList.addItemDecoration(
+            DividerItemDecoration(
+                binding.restaurantList.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         val restaurantAdapter = RestaurantAdapter()
 

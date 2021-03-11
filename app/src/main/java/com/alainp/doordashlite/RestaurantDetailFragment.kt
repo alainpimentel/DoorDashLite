@@ -63,12 +63,14 @@ class RestaurantDetailFragment : Fragment() {
 
                 val price = (1..restaurantDetail.priceRange).joinToString(separator = "") { "$" }
                 val ratings = getNumberInstance(Locale.US).format(restaurantDetail.numRatings)
-                binding.restaurantReviewsText.text = " ${ratings}+ ratings - $price" // TODO move to res
+                val ratingsText = String.format(getString(R.string.ratings_description), ratings, price)
+                binding.restaurantReviewsText.text = ratingsText
                 binding.dashPassText.visibility =
                     if (restaurantDetail.dashPass) View.VISIBLE
                     else View.GONE
 
-                binding.restaurantDeliveryTimeValueText.text = "${restaurantDetail.asapTime} min" // TODO move to res
+                val deliveryText = String.format(getString(R.string.delivery_description), restaurantDetail.asapTime)
+                binding.restaurantDeliveryTimeValueText.text = deliveryText
                 binding.restaurantDeliveryFeeValueText.text = restaurantDetail.deliveryFeeDisplayString
             }
         }

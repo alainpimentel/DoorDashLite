@@ -1,5 +1,6 @@
 package com.alainp.doordashlite.data
 
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.paging.Pager
@@ -16,7 +17,6 @@ class RestaurantRepository @Inject constructor(
     private val restaurantDetailDao: RestaurantDetailDao
 ) {
 
-    // TODO pass page size
     fun getRestaurants(
         @FloatRange(from = -90.0, to = 90.0) lat: Float,
         @FloatRange(from = -180.0, to = 180.0) lng: Float
@@ -37,23 +37,21 @@ class RestaurantRepository @Inject constructor(
         val exists =
             restaurantDetailDao.hasRestaurantDetail(restaurantId, currentTimeMillis - 1 * 60 * 1000)
         if (!exists) {
-            Log.d("messi", "Restaurant $restaurantId does not exist, fetching...")
+            Log.d(TAG, "Restaurant $restaurantId does not exist, fetching...")
             val response = service.getRestaurantDetail(restaurantId)
-            Log.d("messi", "response Restaurant $response ...")
+            Log.d(TAG, "response Restaurant $response ...")
             val updatedRestaurantDetail = response.copy(
                 lastUpdated = System.currentTimeMillis(),
                 deliveryFeeDisplayString = response.deliveryFeeDetails?.originalFee?.displayString
             )
-            // TODO check for errors
-
             restaurantDetailDao.insertAll(listOf(updatedRestaurantDetail))
-            Log.d("messi", "Restaurant $restaurantId was fetched...!\n $updatedRestaurantDetail")
+            Log.d(TAG, "Restaurant $restaurantId was fetched...!\n $updatedRestaurantDetail")
         } else {
-            Log.d("messi", "CACHED!")
+            Log.d(TAG, "restaurantId $restaurantId is CACHED!")
         }
     }
 
     companion object {
-        private const val PAGE_SIZE = 25
+        private const val TAG = "MessiRestaurantRepo"
     }
 }

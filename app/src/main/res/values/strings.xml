@@ -16,4 +16,6 @@
     <string name="delivery_fee">delivery fee</string>
     <string name="delivery_time">delivery time</string>
     <string name="dashpass">DashPass</string>
+    <string name="ratings_description">%s+ ratings - %s</string>
+    <string name="delivery_description">%s min</string>
 </resources>
