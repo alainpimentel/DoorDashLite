@@ -10,64 +10,6 @@
             type="com.alainp.doordashlite.data.RestaurantDetail" />
     </data>
 
-
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="?attr/colorSurface"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        tools:context="com.google.samples.apps.sunflower.GardenActivity"-->
-<!--        tools:ignore="MergeRootFrame">-->
-
-<!--        <com.google.android.material.appbar.AppBarLayout-->
-<!--            android:id="@+id/appbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/restaurant_detail_app_bar_height"-->
-<!--            android:animateLayoutChanges="true"-->
-<!--            android:background="?attr/colorSurface"-->
-<!--            android:fitsSystemWindows="true"-->
-<!--            android:stateListAnimator="@animator/show_toolbar"-->
-<!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
-
-<!--            <com.google.android.material.appbar.CollapsingToolbarLayout-->
-<!--                android:id="@+id/toolbar_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:fitsSystemWindows="true"-->
-<!--                app:collapsedTitleGravity="center"-->
-<!--                app:collapsedTitleTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"-->
-<!--                app:contentScrim="?attr/colorSurface"-->
-<!--                app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-<!--                app:statusBarScrim="@color/black"-->
-<!--                app:title="@{restaurantDetail.name}"-->
-<!--                app:titleEnabled="false"-->
-<!--                app:toolbarId="@id/toolbar">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/restaurant_image"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/restaurant_detail_app_bar_height"-->
-<!--                    android:contentDescription="@string/restaurant_detail_image_content_description"-->
-<!--                    android:fitsSystemWindows="true"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    app:imageUrl="@{restaurantDetail.coverImgUrl}"-->
-<!--                    app:layout_collapseMode="parallax"-->
-<!--                    tools:src="@drawable/thai" />-->
-
-<!--                <com.google.android.material.appbar.MaterialToolbar-->
-<!--                    android:id="@+id/toolbar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="?attr/actionBarSize"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    app:contentInsetStartWithNavigation="0dp"-->
-<!--                    app:layout_collapseMode="pin"-->
-<!--                    app:navigationIcon="@drawable/ic_baseline_arrow_back_24"-->
-<!--                    app:titleTextColor="@color/black" />-->
-
-<!--            </com.google.android.material.appbar.CollapsingToolbarLayout>-->
-
-<!--        </com.google.android.material.appbar.AppBarLayout>-->
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/restaurant_detail_scrollview"
             android:layout_width="match_parent"
@@ -132,14 +74,15 @@
                     android:layout_marginTop="@dimen/margin_small"
                     app:layout_constraintStart_toStartOf="@id/start_guideline"
                     app:layout_constraintTop_toBottomOf="@id/restaurant_detail_name"
-                    android:text="DashPass" />
+                    android:textColor="@color/teal_700"
+                    android:paddingEnd="@dimen/margin_small"
+                    android:text="@string/dashpass" />
 
                 <TextView
                     android:id="@+id/restaurant_tags_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{restaurantDetail.description}"
-                    android:layout_marginLeft="@dimen/margin_small"
                     app:layout_constraintEnd_toEndOf="@id/end_guideline"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@id/dash_pass_text"
@@ -153,7 +96,8 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:text="@{restaurantDetail.averageRatingToString()}"
                     app:layout_constraintStart_toStartOf="@id/start_guideline"
-                    app:layout_constraintTop_toBottomOf="@id/dash_pass_text"
+                    app:layout_constraintTop_toBottomOf="@id/restaurant_tags_text"
+                    android:drawableEnd="@drawable/ic_baseline_star_rate_24"
                     tools:text="4.6 * " />
 
                 <TextView
