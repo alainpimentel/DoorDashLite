@@ -36,6 +36,9 @@ buildscript {
         uiAutomatorVersion = '2.2.0'
         viewPagerVersion = '1.0.0'
         workVersion = '2.1.0'
+        mockitoKotlinVersion = '2.2.0'
+        mockitoInlineVersion = '2.8.47'
+        kotlinxCoroutinesTestVersion = '1.4.3'
     }
     repositories {
         google()

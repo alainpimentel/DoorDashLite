@@ -20,7 +20,7 @@ android {
         versionCode 1
         versionName "0.1"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.alainp.doordashlite.utilities.MainTestRunner"
     }
 
     buildTypes {
@@ -84,4 +84,7 @@ dependencies {
     androidTestImplementation "com.google.truth:truth:$rootProject.truthVersion"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$rootProject.hiltVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$rootProject.mockitoKotlinVersion"
+    testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInlineVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTestVersion"
 }

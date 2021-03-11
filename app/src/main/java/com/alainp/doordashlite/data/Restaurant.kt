@@ -1,6 +1,5 @@
 package com.alainp.doordashlite.data
 
-import android.util.Log
 import com.alainp.doordashlite.utilities.toEpochMs
 import com.google.gson.annotations.SerializedName
 
