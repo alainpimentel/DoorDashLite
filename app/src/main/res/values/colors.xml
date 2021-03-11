@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="doordash_black">#DE000000</color>
+    <color name="doordash_red">#ff3008</color>
+    <color name="doordash_red_dark">#c30000</color>
 </resources>

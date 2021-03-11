@@ -6,12 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alainp.doordashlite.databinding.FragmentRestaurantDetailBinding
 import com.alainp.doordashlite.viewmodels.RestaurantDetailViewModel
@@ -51,23 +49,24 @@ class RestaurantDetailFragment : Fragment() {
             container,
             false
         ).apply {
-            restaurantDetailScrollview.setOnScrollChangeListener(
-                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-                    var isToolbarShown = false
-                    val shouldShowToolbar = scrollY > toolbar.height
-                    if (isToolbarShown != shouldShowToolbar) {
-                        isToolbarShown = shouldShowToolbar
-
-                        // Use shadow animator to add elevation if toolbar is shown
-                        appbar.isActivated = shouldShowToolbar
-
-                        // Show the plant name if toolbar is shown
-                        toolbarLayout.isTitleEnabled = shouldShowToolbar
-                    }
-                    toolbar.setNavigationOnClickListener { view ->
-                        view.findNavController().navigateUp()
-                    }
-                })
+//            var isToolbarShown = false
+//            toolbarLayout.isTitleEnabled = true
+//            restaurantDetailScrollview.setOnScrollChangeListener(
+//                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+//                    val shouldShowToolbar = scrollY > toolbar.height
+//                    if (isToolbarShown != shouldShowToolbar) {
+//                        isToolbarShown = shouldShowToolbar
+//
+//                        // Use shadow animator to add elevation if toolbar is shown
+//                        appbar.isActivated = shouldShowToolbar
+//
+//                        // Show the plant name if toolbar is shown
+//                        toolbarLayout.isTitleEnabled = shouldShowToolbar
+//                    }
+//                    toolbar.setNavigationOnClickListener { view ->
+//                        view.findNavController().navigateUp()
+//                    }
+//                })
 
         }
 
