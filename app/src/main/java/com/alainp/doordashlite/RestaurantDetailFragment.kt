@@ -1,5 +1,6 @@
 package com.alainp.doordashlite
 
+import android.app.Application
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -34,7 +35,8 @@ class RestaurantDetailFragment : Fragment() {
     private val viewModel: RestaurantDetailViewModel by viewModels() {
         RestaurantDetailViewModel.provideFactory(
             restaurantDetailViewModelViewModelFactory,
-            args.restaurantId
+            args.restaurantId,
+            MainApplication.instance
         )
     }
     private lateinit var binding: FragmentRestaurantDetailBinding
