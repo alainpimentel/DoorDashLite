@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.alainp.doordashlite.adapters.OnLikeClickCallback
 import com.alainp.doordashlite.adapters.RestaurantAdapter
 import com.alainp.doordashlite.databinding.FragmentRestaurantListBinding
 import com.alainp.doordashlite.viewmodels.RestaurantListViewModel
@@ -45,7 +46,11 @@ class RestaurantListFragment : Fragment() {
             )
         )
 
-        val restaurantAdapter = RestaurantAdapter()
+        val restaurantAdapter = RestaurantAdapter(onLikeClickCallback = object : OnLikeClickCallback {
+            override fun onClick(restaurantId: Long) {
+                viewModel.toggleLike(restaurantId)
+            }
+        })
 
         binding.restaurantList.adapter = restaurantAdapter
         subscribeUI(restaurantAdapter)

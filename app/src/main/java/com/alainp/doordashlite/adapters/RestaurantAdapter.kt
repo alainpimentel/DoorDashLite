@@ -1,5 +1,6 @@
 package com.alainp.doordashlite.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -12,16 +13,19 @@ import com.alainp.doordashlite.data.Restaurant
 import com.alainp.doordashlite.data.asapMinute
 import com.alainp.doordashlite.data.isOpen
 import com.alainp.doordashlite.databinding.ListItemRestaurantBinding
+import com.alainp.doordashlite.utilities.getLike
 
-class RestaurantAdapter :
+class RestaurantAdapter(private val onLikeClickCallback: OnLikeClickCallback) :
     PagingDataAdapter<Restaurant, RecyclerView.ViewHolder>(RestaurantDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return RestaurantViewHolder(
             ListItemRestaurantBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onLikeClickCallback
         )
     }
 
@@ -33,7 +37,8 @@ class RestaurantAdapter :
     }
 
     class RestaurantViewHolder(
-        private val binding: ListItemRestaurantBinding
+        private val binding: ListItemRestaurantBinding,
+        private val onLikeClickCallback: OnLikeClickCallback
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
@@ -43,6 +48,13 @@ class RestaurantAdapter :
                             it.id
                         )
                     view.findNavController().navigate(direction)
+                }
+            }
+
+            binding.likeButton.setOnClickListener {
+                binding.restaurant?.let { restaurant ->
+                    onLikeClickCallback.onClick(restaurant.id)
+                    updateLikeResource(binding.root.context, restaurant.id)
                 }
             }
         }
@@ -63,8 +75,23 @@ class RestaurantAdapter :
                         else context.getString(R.string.mins)
             }
             binding.restaurantAsapText.text = asapText
+
+            // Set like state
+            updateLikeResource(context, item.id)
+        }
+
+        private fun updateLikeResource(context: Context, id: Long) {
+            val likeValue = getLike(id)
+            val likeResource =
+                if (likeValue) R.drawable.ic_baseline_star_24
+                else R.drawable.ic_baseline_star_border_24
+            binding.likeButton.setImageDrawable(context.getDrawable(likeResource))
         }
     }
+}
+
+interface OnLikeClickCallback {
+    fun onClick(restaurantId: Long)
 }
 
 private class RestaurantDiffCallback : DiffUtil.ItemCallback<Restaurant>() {

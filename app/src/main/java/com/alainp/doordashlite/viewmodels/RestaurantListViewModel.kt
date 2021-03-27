@@ -24,4 +24,8 @@ class RestaurantListViewModel @Inject internal constructor(
             lng = -122.139956F
         ).cachedIn(viewModelScope)
     }
+
+    fun toggleLike(restaurantId: Long) {
+        restaurantRepository.toggleLike(restaurantId)
+    }
 }

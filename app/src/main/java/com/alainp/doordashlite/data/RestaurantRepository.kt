@@ -1,12 +1,17 @@
 package com.alainp.doordashlite.data
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.annotation.FloatRange
+import androidx.core.content.edit
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.alainp.doordashlite.MainApplication
 import com.alainp.doordashlite.api.RestaurantService
+import com.alainp.doordashlite.utilities.getLike
+import com.alainp.doordashlite.utilities.toLikePreferenceKey
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +26,21 @@ class RestaurantRepository @Inject constructor(
     private val service: RestaurantService,
     private val restaurantDetailDao: RestaurantDetailDao
 ) {
+
+//    fun getLike(): LiveData<Boolean>
+
+    fun toggleLike(restaurantId: Long) {
+        // TODO inject application
+        val defaultSharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(MainApplication.instance)
+
+        val likeKey = restaurantId.toLikePreferenceKey()
+        val currentValue = getLike(restaurantId)
+
+        defaultSharedPreferences.edit {
+            this.putBoolean(likeKey, !currentValue)
+        }
+    }
 
     fun getRestaurants(
         @FloatRange(from = -90.0, to = 90.0) lat: Float,
@@ -56,7 +76,10 @@ class RestaurantRepository @Inject constructor(
         }
     }
 
+
+
     companion object {
         private const val TAG = "MessiRestaurantRepo"
+        const val PREF_KEY_LIKE = "like_"
     }
 }
